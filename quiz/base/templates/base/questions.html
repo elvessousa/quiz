@@ -20,10 +20,23 @@
           <h3>{{ question.statement }}</h3>
 
           {% for option in question.options.array %}
-          <div class="choice-container">
-            <p class="choice-prefix">{% cycle 'A' 'B' 'C' 'D' %}</p>
-            <p class="choice-text">{{ option }}</p>
-          </div>
+          <form method="post" action="/questions/{{index}}">
+            {% csrf_token %}
+            <div class="choice-container">
+              <button 
+                type="submit" 
+                class="
+                  choice-prefix 
+                  {% if answer_index == forloop.counter0 %} incorrect{% endif %}"
+              >
+                {% cycle 'A' 'B' 'C' 'D' %}
+              </button>
+              <button type="submit" class="choice-text">
+                {{ option }}
+              </button>
+            </div>
+            <input type="hidden" name="answer_index" value="{{forloop.counter0}}" />
+           </form>
           {% endfor %}
         </div>
       </div>
