@@ -1,3 +1,5 @@
+from django.db.models.aggregates import Sum
+from django.db.utils import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 
@@ -59,14 +61,20 @@ def questions(request, index):
                             score=MAX_SCORE
                         ).save()
                     else:
-                        difference = now() - first_answer_date
-                        diff_seconds = int(difference.total_seconds())
-                        score = max(MAX_SCORE - diff_seconds, 10)
-                        StudentAnswer(
-                            student_id=student_id,
-                            question=question,
-                            score=score
-                        ).save()
+                        try:
+                            difference = now() - first_answer_date
+                            diff_seconds = int(difference.total_seconds())
+                            score = max(MAX_SCORE - diff_seconds, 10)
+                        except IntegrityError:
+                            return redirect(f'/questions/{index + 1}')
+                        else:
+                            StudentAnswer(
+                                student_id=student_id,
+                                question=question,
+                                score=score
+                            ).save()
+
+
 
                     return redirect(f'/questions/{index + 1}')
 
@@ -75,4 +83,18 @@ def questions(request, index):
 
 def ranking(request):
     """ Ranking page """
-    return render(request, 'base/ranking.html')
+    try:
+        student_id = request.session['student_id']
+    except KeyError:
+        return redirect('/')
+    else:
+        score_dict = StudentAnswer.objects.filter(student=student_id).aggregate(Sum('score'))
+        student_score = score_dict['score__sum']
+        better_ranked_count = StudentAnswer.objects.values('student').annotate(Sum('score')).filter(score__sum__gt = student_score).count()
+        best_ranks = StudentAnswer.objects.values('student', 'student__name').annotate(Sum('score')).order_by('-score__sum')[:5]
+        context = {
+            'student_score': student_score,
+            'student_rank': better_ranked_count + 1,
+            'best_ranks': best_ranks
+        }
+        return render(request, 'base/ranking.html', context)
