@@ -61,22 +61,20 @@ def questions(request, index):
                             score=MAX_SCORE
                         ).save()
                     else:
+                        difference = now() - first_answer_date
+                        diff_seconds = int(difference.total_seconds())
+                        score = max(MAX_SCORE - diff_seconds, 10)
+
                         try:
-                            difference = now() - first_answer_date
-                            diff_seconds = int(difference.total_seconds())
-                            score = max(MAX_SCORE - diff_seconds, 10)
-                        except IntegrityError:
-                            return redirect(f'/questions/{index + 1}')
-                        else:
                             StudentAnswer(
                                 student_id=student_id,
                                 question=question,
                                 score=score
                             ).save()
+                        except IntegrityError:
+                            return redirect(f'/questions/{index + 1}')
 
-
-
-                    return redirect(f'/questions/{index + 1}')
+                        return redirect(f'/questions/{index + 1}')
 
                 context['answer_index'] = answer_index
             return render(request, 'base/questions.html', context=context)
