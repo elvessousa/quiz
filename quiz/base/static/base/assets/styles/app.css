@@ -1,34 +1,29 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,600,900);
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&display=swap');
 
 :root {
-  background-color: #1d2241;
+  background-color: #000;
   height: -webkit-fill-available;
   font-size: 62.5%;
 }
 
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   color: #333;
 }
 
-body {
-  background-color: #1d2241;
-  background: -webkit-linear-gradient(right, #1d2241, #30386b);
-  background: -moz-linear-gradient(right, #1d2241, #30386b);
-  background: -o-linear-gradient(right, #1d2241, #30386b);
-  background: linear-gradient(to left, #1d2241, #30386b);
-  background-image: url('../img/img-bg.jpg');
-  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
-  background-position: center center;
-  background-repeat: no-repeat;
+html {
+  background: url('../img/bg.jpg') center no-repeat;
   background-size: cover;
-  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+  font-family: 'Josefin Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
 }
 
 h1,
@@ -36,7 +31,7 @@ h2,
 h3,
 h4 {
   margin-bottom: 1rem;
-  color: #1d2241;
+  color: #000;
 }
 
 h1 {
@@ -51,23 +46,23 @@ h2 {
 }
 
 h3 {
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-weight: 500;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 /* Util - Base */
 
 .container {
   background: #fff;
-  width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 80rem;
+  max-width: 60rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 2px;
 }
 
@@ -128,15 +123,17 @@ h3 {
 
 .choice-prefix {
   padding: 1.5rem 2.5rem;
-  background-color: #1d2241;
+  background-color: #000;
   color: #fff;
   border: 0;
-  border-radius: 4px 0 0 4px;
+  width: 70px;
 }
 
 .choice-text {
   padding: 1.5rem;
   width: 100%;
+  font-size: 1.7rem;
+  border: 0;
 }
 
 .correct {
@@ -202,7 +199,7 @@ input {
   margin-bottom: 1rem;
   width: 20rem;
   padding: 1.5rem;
-  font-size: 1.8rem;
+  font-size: 8rem;
   border: none;
   /*box-shadow: 0 0.1rem 1.4rem 0 rgba(86, 185, 235, 05);*/
 }
@@ -241,7 +238,7 @@ input::placeholder {
   border-radius: 2px;
 }
 .form input {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
   letter-spacing: 0.2rem;
   outline: 0;
@@ -251,21 +248,21 @@ input::placeholder {
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 2rem;
   border-radius: 2px;
 }
 
 .form input:focus {
-  border: 1px solid #30386b;
+  border: 1px solid #fc0;
 }
 
 .form button {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: 600;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
   outline: 0;
-  background: #30386b;
+  background: #000;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -279,7 +276,8 @@ input::placeholder {
 .form button:hover,
 .form button:active,
 .form button:focus {
-  background: #1d2241;
+  background: #320;
+  color: #fc0;
 }
 
 .container:before,
@@ -291,18 +289,43 @@ input::placeholder {
 
 /*Página - Resultado do Jogo*/
 .game-result h2 {
+  font-size: 3.5rem;
   text-align: center;
 }
 .status-player {
-  border: 1px solid #1d2241;
+  border: 15px solid #f90;
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  font-size: 50px;
-  background: #1d2241;
-  color: #fff;
+  font-size: 116px !important;
+  background: radial-gradient(#fc0 50%, #f90);
+  color: #000;
   line-height: 200px;
   margin: 0 auto;
+  padding: 0.7em 0.5em 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(30deg) rotateX(-45deg);
+  box-shadow: 11px 18px #f90;
+}
+
+footer {
+  text-align: center;
+}
+
+footer p {
+  color: #888;
+  font-size: 1.5rem;
+}
+
+footer a {
+  color: #fc0;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
 }
 
 /* Loader */
@@ -379,4 +402,3 @@ input::placeholder {
     height: auto;
   }
 }
-
